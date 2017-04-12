@@ -3,124 +3,173 @@ $white: #fff;
 $orange: #ff4700;
 $blue: #1d2d3a;
 
-// Mixins
-@mixin generate-gradient($color) {
-	background: -moz-linear-gradient(top, rgba($color,0) 0%, rgba($color,1) 100%);
-	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba($color,0)), color-stop(100%, rgba($color,1)));
-	background: -webkit-linear-gradient(top, rgba($color,0) 0%, rgba($color,1) 100%);
-	background: -o-linear-gradient(top, rgba($color,0) 0%, rgba($color,1) 100%);
-	background: -ms-linear-gradient(top, rgba($color,0) 0%, rgba($color,1) 100%);
-	background: linear-gradient(to bottom, rgba($color,0) 0%, rgba($color,1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff4800', endColorstr='#ff4800', GradientType=0 );
-}
-
 .music-player{
   background: darken($blue, 3);
-  border-radius: 5px;
-  overflow: hidden;
-  box-shadow: 0 5px 10px -5px rgba($black, 1);
-  height: 667px;
-  position: relative;
-  width: 375px;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  width: 100%;
+  height: 50px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1002;
   color: #fff;
+  padding: 0 20px;
   audio{
     display: none;
   }
 
-  .player-header{
-    padding: 15px 0;
-    text-align: center;
-    font-size: 20px;
-  }
-
-  .album-pic{
-    background-size: cover;
-    background-position: center center;
-    width: 300px;
-    height: 300px;
-    margin: auto;
-    border-radius: 4px;
-    box-shadow: 0 5px 10px -5px rgba($black, .25);
-    position: relative;
-  }
-  .track-info{
-    text-align: center;
-    width: 300px;
-    margin: 30px auto;
-    position: relative;
-    .name{
-      font-size: 24px;
-      margin-bottom: 10px;
-      font-weight: 300;
-    }
-    .artist{
-      font-size: 16px;
-      margin-bottom: 5px;
-      font-weight: 500;
-    }
-    .album{
-      font-size: 12px;
-      opacity: .5;
-    }
-  }
-  .progress{
-    width: 0;
-    height: 20%;
-    transition: width .25s ease;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    @include generate-gradient($orange);
-  }
-  .time{
-    display: flex;
-    justify-content: space-between;
-    box-sizing: border-box;
-    padding: 20px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 2;
-    width: 100%;
-    font-size: 12px;
-  }
   .controls{
     position: relative;
-
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-grow: 1;
     .play{
       cursor: pointer;
-      width: 75px;
-      height: 75px;
+      width: 28px;
+      height: 28px;
       border: 2px solid #ccc;
       border-radius: 50%;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       color: #fff;
-      font-size: 35px;
-      &:hover{
-        font-size: 40px;
-      }
+      font-size: 14px;
+      text-align: center;
     }
     .previous,
     .next{
       cursor: pointer;
+      font-size: 12px;
+    }
+  }
+  .album-pic{
+    flex-grow: 0;
+    background-size: cover;
+    background-position: center center;
+    width: 35px;
+    height: 35px;
+    border-radius: 4px;
+    box-shadow: 0 5px 10px -5px rgba($black, .25);
+    margin-right: 10px;
+  }
+  .track-progress{
+    flex-grow: 5;
+    align-items: initial;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+  }
+  .track-info{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    .name{
+      font-size: 12px;
+      color: #e8e8e8;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      word-wrap: normal;
+      margin-right: 15px;
+    }
+    .artist{
+      font-size: 12px;
+      color: #9b9b9b;
+    }
+  }
+  .progress-time{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  .progress{
+    width: 100%;
+    height: 9px;
+    border-radius: 5px;
+    background-color: #535353;
+    .cur{
+      background-color: #c70c0c;
+      position: relative;
+      height: 9px;
+      border-radius: 5px;
+    }
+    .btn{
       position: absolute;
-      top: 25px;
-      font-size: 30px;
-      &:hover{
-        font-size: 32px;
+      width: 20px;
+      height: 20px;
+      top: -6px;
+      right: -13px;
+      cursor: pointer;
+      border-radius: 50%;
+      background-color: #fff;
+      text-align: center;
+      i{
+        width: 5px;
+        height: 5px;
+        vertical-align: middle;
+        background-color: #c70c0c;
+        border-radius: 50%;
+        display: inline-block;
       }
     }
-    .previous{
-      left: 60px;
+  }
+  .time{
+    font-size: 12px;
+    color: #797979;
+    .current{
+      color: #a1a1a1;
     }
-    .next{
-      right: 60px;
+  }
+  .volume-ctrl{
+    font-size: 14px;
+    margin: 0 10px;
+    position: relative;
+    i{
+      cursor: pointer;
     }
+    .volume-bg{
+      position: absolute;
+      bottom: 36px;
+      left: -8px;
+      width: 32px;
+      height: 110px;
+      background-color: rgba(0, 0, 0, .7);
+      display: none;
+      text-align: center;
+      .volume-bar{
+        position: absolute;
+        height: 90px;
+        width: 4px;
+        border-radius: 3px;
+        bottom: 10px;
+        left: 14px;
+        background-color: #000;
+      }
+      .bar-cur{
+        position: absolute;
+        bottom: 0;
+        width: 4px;
+        border-radius: 3px;
+        background-color: #c70c0c;
+      }
+      .btn{
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        top: -2px;
+        right: -6px;
+        cursor: pointer;
+        border-radius: 50%;
+        background-color: #fff;
+        text-align: center;
+      }
+    }
+  }
+  .cycle-mode{
+    cursor: pointer;
   }
 }

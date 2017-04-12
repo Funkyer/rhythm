@@ -7,11 +7,11 @@ class Controls extends Component {
     className = this.props.playing ? 'pause' : 'caret-right';
     return (
       <div className="controls">
-        <div className="play" onClick={this.props.onPlay}>
-          <Icon type={className} />
-        </div>
         <div className="previous" onClick={this.props.onPrevious}>
           <Icon type="fast-backward" />
+        </div>
+        <div className="play" onClick={this.props.onPlay}>
+          <Icon type={className} />
         </div>
         <div className="next" onClick={this.props.onNext}>
           <Icon type="fast-forward" />

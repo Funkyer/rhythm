@@ -5,20 +5,11 @@ class TrackInfo extends Component {
     track: {}
   };
   render(){
-    let album = this.props.track.album;
-    let artist = this.props.track.artists && this.props.track.artists[0];
+    let track = this.props.track;
     return (
-      <div>
-        <div
-          className="album-pic"
-          style={{ backgroundImage: `url(${album && album.picUrl})`}}
-        >
-        </div>
-        <div className="track-info">
-          <div className="name">{this.props.track.name}</div>
-          <div className="artist">{artist && artist.name}</div>
-          <div className="album">{album && album.name}</div>
-        </div>
+      <div className="track-info">
+        <div className="name">{track && track.name}</div>
+        <div className="artist">{track && track.artists && track.artists.join('/')}</div>
       </div>
     );
   }
